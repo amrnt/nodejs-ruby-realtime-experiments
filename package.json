@@ -1,0 +1,9 @@
+{
+  "name": "simple-socket-io-app",
+  "version": "0.0.1",
+  "main": "app.js",
+  "dependencies": {
+    "socket.io": "~0.9.10"
+  },
+  "author": "Amr N. Tamimi",
+}
