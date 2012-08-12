@@ -19,7 +19,8 @@
     });
 
     socket.on('message', function (data) {
-      document.getElementById('chat_container').innerHTML += '<p>' + data + '</p><hr />'
+      oldText = document.getElementById('chat_container').innerHTML;
+      document.getElementById('chat_container').innerHTML = '<p>' + data + '</p><hr />' + oldText;
     });
 
     socket.on('disconnect', function () {
