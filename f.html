@@ -1,0 +1,101 @@
+<html>
+<head>
+  <title>Realtime Finance</title>
+  <style>
+    body{
+      padding: 40px;
+    }
+    .stock-block{
+      overflow: hidden;
+      display: inline-block;
+      width: 250px;
+      background-color: #ffffee;
+      color: #111;
+      font-family: tahoma;
+      font-size: 18px;
+      text-align: center;
+      vertical-align: middle;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #cccccc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stock-block" id="NASDAQ_GOOG">
+  </div>
+  <div class="stock-block" id="NASDAQ_FB">
+  </div>
+  <div class="stock-block" id="NASDAQ_AAPL">
+  </div>
+  <div class="stock-block" id="NASDAQ_MSFT">
+  </div>
+  <div class="stock-block" id="NYSE_NOK">
+  </div>
+
+  <div id="container"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+  <script src="http://0.0.0.0:9000/socket.io/socket.io.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    var socket = io.connect('http://0.0.0.0:9000/stock');
+
+    socket.on('connect', function () {
+      console.log('connected.');
+    });
+
+    socket.on('message', function (data) {
+      createTable(data);
+    });
+
+    socket.on('disconnect', function () {
+      console.log('disconnected');
+    });
+
+    socket.send('NASDAQ:GOOG,NASDAQ:FB,NASDAQ:MSFT,NASDAQ:AAPL,NYSE:NOK');
+
+    var createTable = function(json) {
+      data = JSON.parse(json)
+      $.each(data, function(i) {
+        $('#' + data[i].e + '_' + data[i].t).html('<p>' + data[i].e + ':' + data[i].t + '</p>' +
+        '<h3>' + data[i].l + '</h3>' +
+        '<span style="color:' +
+        (data[i].ccol == 'chg' ? '#093' : data[i].ccol == 'chr' ? '#D14836' : '#2E7FF0') +
+        ';">' +
+        (data[i].ccol == 'chg' ? data[i].c : data[i].ccol == 'chr' ? data[i].c : '0.0') +
+        ' (' + (data[i].ccol == 'chg' ? data[i].cp : data[i].ccol == 'chr' ? data[i].cp : '0.0') + '%)'+
+        '</span>' +
+        '<h6>'+ data[i].lt +'</h6>' +
+        '<h6>'+ data[i].l +'</h6>')
+      });
+    }
+  </script>
+
+<!--https://github.com/MikeOnRails/market_beat/blob/master/lib/market_beat/google.yml-->
+<!--c: "+5.33"-->
+<!--ccol: "chg"-->
+<!--cp: "0.80"-->
+<!--e: "NASDAQ"-->
+<!--id: "694653"-->
+<!--l: "672.87"-->
+<!--l_cur: "672.87"-->
+<!--lt: "Aug 16, 4:00PM EDT"-->
+<!--ltt: "4:00PM EDT"-->
+<!--s: "0"-->
+<!--t: "GOOG"-->
+
+<!--# Real Time-->
+<!--:c: :change_real_time-->
+<!--:cp: :percent_change_real_time-->
+<!--:l: :last_trade_real_time-->
+<!--:lt: :last_trade_datetime_real_time-->
+<!--:ltt: :last_trade_time_real_time-->
+<!--:ccol: :color_code_real_time-->
+<!--# :l_cur: :?-->
+<!--# :s: :?-->
+
+<!--http://www.google.com/finance/getprices?q=GOOG&x=NASD&i=&f=d,c,v,o,h,l,cp-->
+</body>
+</html>
+
