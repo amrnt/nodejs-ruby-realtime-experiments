@@ -3,7 +3,8 @@ engines = require 'consolidate'
 app = express()
 
 app.configure ->
-  app.engine 'html', engines.handlebars
+  app.engine 'html', engines.underscore
+
   app.set 'view engine', 'html'
   app.set 'views', "#{__dirname}/../express/views"
 

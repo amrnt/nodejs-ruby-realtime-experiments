@@ -1,3 +1,7 @@
-<h1>{{title}}</h1>
-<p>Welcome to the {{title}} demo.</p>
-
+<h1><%= title %></h1>
+<p>Welcome to the <%= title %> demo.</p>
+<% if(title === 'Hello World'){ %>
+  World == Earth
+<% }else{ %>
+  Hello Mars
+<% } %>
