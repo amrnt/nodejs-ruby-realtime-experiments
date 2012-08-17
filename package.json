@@ -1,9 +1,17 @@
 {
-  "name": "simple-socket-io-app",
-  "version": "0.0.1",
-  "main": "app.js",
-  "dependencies": {
-    "socket.io": "~0.9.10"
-  },
-  "author": "Amr N. Tamimi",
+  "name": "simple-socket-io-app"
+  , "version": "0.0.1"
+  , "main": "app.js"
+  , "dependencies": {
+    "express": "~3.0.0"
+    , "socket.io": "~0.9.10"
+    , "consolidate": "~0.4.0"
+    , "handlebars": "~1.0.0"
+  }
+  , "devDependencies": {
+    "coffee-script": "*"
+    , "mocha": "*"
+    , "should": "*"
+  }
+  , "author": "Amr N. Tamimi"
 }
