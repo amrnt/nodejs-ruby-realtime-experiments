@@ -18,7 +18,7 @@ tickers = ''
 
 # io.set 'log level', 2
 
-stock = io.of('/stock')
+nasdaq100 = io.of('/nasdaq100')
 .on 'connection', (socket) ->
   socket.on 'connect', ->
     socket.send 'You are connected now.'
@@ -47,7 +47,7 @@ makeReq = ->
       body = body.substr(3).replace(/^\s+|\s+$/g,'')
       body = JSON.parse(body)
       body = JSON.stringify(body)
-      stock.json.send(body)
+      nasdaq100.json.send(body)
       process.nextTick ->
         sleep 2000
         makeReq()
