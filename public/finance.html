@@ -22,18 +22,6 @@
   </style>
 </head>
 <body>
-
-  <div class="stock-block" id="NASDAQ_GOOG">
-  </div>
-  <div class="stock-block" id="NASDAQ_FB">
-  </div>
-  <div class="stock-block" id="NASDAQ_AAPL">
-  </div>
-  <div class="stock-block" id="NASDAQ_MSFT">
-  </div>
-  <div class="stock-block" id="NYSE_NOK">
-  </div>
-
   <div id="container"></div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
@@ -53,11 +41,14 @@
       console.log('disconnected');
     });
 
-    socket.send('NASDAQ:GOOG,NASDAQ:FB,NASDAQ:MSFT,NASDAQ:AAPL,NYSE:NOK');
+    socket.send('NASDAQ:ATVI,NASDAQ:ADBE,NASDAQ:AKAM,NASDAQ:ALXN,NASDAQ:ALTR,NASDAQ:AMZN,NASDAQ:AMGN,NASDAQ:APOL,NASDAQ:AAPL,NASDAQ:AMAT,NASDAQ:ADSK,NASDAQ:ADP,NASDAQ:AVGO,NASDAQ:BIDU,NASDAQ:BBBY,NASDAQ:BIIB,NASDAQ:BMC,NASDAQ:BRCM,NASDAQ:CHRW,NASDAQ:CA,NASDAQ:CELG,NASDAQ:CERN,NASDAQ:CHKP,NASDAQ:CSCO,NASDAQ:CTXS,NASDAQ:CTSH,NASDAQ:CMCSA,NASDAQ:COST,NASDAQ:DELL,NASDAQ:XRAY,NASDAQ:DTV,NASDAQ:DLTR,NASDAQ:EBAY,NASDAQ:EA,NASDAQ:EXPE,NASDAQ:EXPD,NASDAQ:ESRX,NASDAQ:FFIV,NASDAQ:FAST,NASDAQ:FISV,NASDAQ:FLEX,NASDAQ:FOSL,NASDAQ:GRMN,NASDAQ:GILD,NASDAQ:GOOG,NASDAQ:GMCR,NASDAQ:HSIC,NASDAQ:INFY,NASDAQ:INTC,NASDAQ:INTU,NASDAQ:ISRG,NASDAQ:KLAC,NASDAQ:KFT,NASDAQ:LRCX,NASDAQ:LINTA,NASDAQ:LIFE,NASDAQ:LLTC,NASDAQ:MRVL,NASDAQ:MAT,NASDAQ:MXIM,NASDAQ:MCHP,NASDAQ:MU,NASDAQ:MSFT,NASDAQ:MNST,NASDAQ:MYL,NASDAQ:NTAP,NASDAQ:NFLX,NASDAQ:NWSA,NASDAQ:NUAN,NASDAQ:NVDA,NASDAQ:ORLY,NASDAQ:ORCL,NASDAQ:PCAR,NASDAQ:PAYX,NASDAQ:PCLN,NASDAQ:PRGO,NASDAQ:QCOM,NASDAQ:GOLD,NASDAQ:RIMM,NASDAQ:ROST,NASDAQ:SNDK,NASDAQ:STX,NASDAQ:SHLD,NASDAQ:SIAL,NASDAQ:SIRI,NASDAQ:SPLS,NASDAQ:SBUX,NASDAQ:SRCL,NASDAQ:SYMC,NASDAQ:TXN,NASDAQ:VRSN,NASDAQ:VRTX,NASDAQ:VIAB,NASDAQ:VMED,NASDAQ:VOD,NASDAQ:WCRX,NASDAQ:WFM,NASDAQ:WYNN,NASDAQ:XLNX,NASDAQ:YHOO');
 
     var createTable = function(json) {
-      data = JSON.parse(json)
+      data = JSON.parse(json);
       $.each(data, function(i) {
+        if($('#' + data[i].e + '_' + data[i].t).length <= 0){
+          $('body').append('<div class="stock-block" id="'+ data[i].e + '_' + data[i].t +'"></div>');
+        }
         $('#' + data[i].e + '_' + data[i].t).html('<p>' + data[i].e + ':' + data[i].t + '</p>' +
         '<h3>' + data[i].l + '</h3>' +
         '<span style="color:' +

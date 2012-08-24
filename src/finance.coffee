@@ -16,7 +16,7 @@ app = http.createServer (req, res) ->
 
 tickers = ''
 
-io.set 'log level', 2
+# io.set 'log level', 2
 
 stock = io.of('/stock')
 .on 'connection', (socket) ->
@@ -49,7 +49,7 @@ makeReq = ->
       body = JSON.stringify(body)
       stock.json.send(body)
       process.nextTick ->
-        sleep 500
+        sleep 2000
         makeReq()
 
   req.end()
